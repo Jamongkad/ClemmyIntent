@@ -22,27 +22,25 @@ class ClemFragment : Fragment() {
     lateinit private var mTitleField: EditText
     lateinit private var mDateButton: Button
     lateinit private var mSolvedCheckbox: CheckBox
+    var ARG_CRIME_ID: String = "crime_id"
 
-    /*
     companion object Factory {
-
-        private var ARG_CRIME_ID: String = "crime_id"
 
         fun newInstance(crimeId: UUID?): ClemFragment {
             val args: Bundle = Bundle()
-            args.putSerializable(ARG_CRIME_ID, crimeId)
+            args.putSerializable(ClemFragment().ARG_CRIME_ID, crimeId)
 
             val clemFragment: ClemFragment = ClemFragment()
             clemFragment.arguments = args
             return clemFragment
         }
     }
-    */
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //val crimeId: UUID = arguments.getSerializable(ClemmyActivity().EXTRA_CRIME_ID) as UUID
-        val crimeId: UUID? = activity.intent.getSerializableExtra(ClemmyActivity().EXTRA_CRIME_ID) as? UUID
+        val crimeId: UUID? = arguments.getSerializable(ClemFragment().ARG_CRIME_ID) as? UUID
+        //val crimeId: UUID? = activity.intent.getSerializableExtra(ClemmyActivity().EXTRA_CRIME_ID) as? UUID
 
         val crimeLab: CrimeLab? = CrimeLab?.create(activity)
         mCrime = crimeLab?.getCrime(crimeId)

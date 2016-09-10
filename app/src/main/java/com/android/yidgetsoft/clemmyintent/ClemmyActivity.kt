@@ -10,12 +10,11 @@ class ClemmyActivity : SingleFragmentActivity() {
     var EXTRA_CRIME_ID: String = "com.bignerdranch.android.criminalintent.crime_id"
 
     override fun createFragment(): Fragment {
-        return ClemFragment()
-        /*
-        val crimeId: UUID? = intent.getSerializableExtra(EXTRA_CRIME_ID) as UUID
-        Log.v("Fragment", "Crime Id #" + crimeId)
+        //return ClemFragment()
+
+        val crimeId: UUID? = intent.getSerializableExtra(EXTRA_CRIME_ID) as? UUID
         return ClemFragment.newInstance(crimeId)
-        */
+
     }
 
     companion object Factory {
