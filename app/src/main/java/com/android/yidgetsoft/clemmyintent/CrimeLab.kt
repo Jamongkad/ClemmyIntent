@@ -1,6 +1,7 @@
 package com.android.yidgetsoft.clemmyintent
 
 import android.content.Context
+import android.util.Log
 import java.util.*
 
 /**
@@ -22,22 +23,29 @@ class CrimeLab private constructor(context: Context) {
     }
 
     companion object Factory {
-        fun create(context: Context):CrimeLab {
-            return CrimeLab(context)
+
+        private var mCrimeLab: CrimeLab? = null
+
+        fun create(context: Context):CrimeLab? {
+            if(mCrimeLab == null) {
+                mCrimeLab = CrimeLab(context)
+            }
+            return mCrimeLab
         }
     }
 
-
-    fun getCrimes():ArrayList<Crime> {
+    fun getCrimes():ArrayList<Crime>? {
        return mCrimes
     }
 
-    fun getCrime(id: UUID):Crime? {
-        var chosenCrime: Crime? = null
+    fun getCrime(id: UUID?):Crime {
+
+        var chosenCrime: Crime = Crime()
 
         for (c: Crime in mCrimes) {
             if(c.mID == id) {
-                chosenCrime=  c
+                Log.v("Crime", "Crime Found!")
+                chosenCrime = c
             }
         }
 
