@@ -59,7 +59,7 @@ class ClemListFragment : Fragment() {
             var activity: Activity = activity
 
             view.setOnClickListener {
-                val intent: Intent = ClemmyActivity.newIntent(activity, mCrime?.mID)
+                val intent: Intent = ClemPagerActivity.newIntent(activity, mCrime?.mID)
                 activity.startActivity(intent)
             }
         }

@@ -2,6 +2,7 @@ package com.android.yidgetsoft.clemmyintent
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -23,6 +24,7 @@ class ClemFragment : Fragment() {
     lateinit private var mDateButton: Button
     lateinit private var mSolvedCheckbox: CheckBox
     var ARG_CRIME_ID: String = "crime_id"
+    var DIALOG_DATE: String = "DialogDate"
 
     companion object Factory {
 
@@ -40,9 +42,8 @@ class ClemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val crimeId: UUID? = arguments.getSerializable(ClemFragment().ARG_CRIME_ID) as? UUID
-        //val crimeId: UUID? = activity.intent.getSerializableExtra(ClemmyActivity().EXTRA_CRIME_ID) as? UUID
 
-        val crimeLab: CrimeLab? = CrimeLab?.create(activity)
+        val crimeLab: CrimeLab? = CrimeLab.create(activity)
         mCrime = crimeLab?.getCrime(crimeId)
     }
 
@@ -66,12 +67,13 @@ class ClemFragment : Fragment() {
 
         mDateButton.text = mCrime?.mDate.toString()
         mDateButton.setOnClickListener({
-            Log.v("Machu", "Plox")
+            val fg: FragmentManager = fragmentManager
+            val dialog: DatePickerFragment = DatePickerFragment()
+            dialog.show(fg, DIALOG_DATE)
         })
 
         mSolvedCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
             mCrime?.mSolved = isChecked
-            Log.v("Machu", "Pleex")
         }
 
         mTitleField.setText(mCrime?.mTitle)
